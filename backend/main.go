@@ -189,7 +189,14 @@ func buildAllowedOrigins(frontendURL string) map[string]bool {
 // isAllowedOrigin checks if the given origin is in the allowlist.
 func isAllowedOrigin(origin string, allowed map[string]bool) bool {
 	if origin == "" {
-		return false
+		return true
 	}
-	return allowed[strings.TrimRight(origin, "/")]
+	if allowed["*"] {
+		return true
+	}
+	cleanOrigin := strings.TrimRight(origin, "/")
+	if strings.HasSuffix(cleanOrigin, ".vercel.app") || strings.Contains(cleanOrigin, "localhost") {
+		return true
+	}
+	return allowed[cleanOrigin]
 }

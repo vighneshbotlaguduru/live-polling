@@ -23,7 +23,11 @@ async function request(path, options = {}) {
       headers,
     });
   } catch (err) {
-    throw new Error('Could not connect to backend server. Make sure the backend is running on port 8080.');
+    console.error(`Fetch failed for ${API_BASE}/api${path}:`, err);
+    if (!API_BASE) {
+      throw new Error('Backend URL is not configured. Please set VITE_API_URL in your Vercel project settings and redeploy.');
+    }
+    throw new Error(`Could not connect to backend server (${API_BASE}). Please check backend status.`);
   }
 
   let data;
