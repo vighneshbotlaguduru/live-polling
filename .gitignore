@@ -1,0 +1,16 @@
+# Binaries and build outputs
+*.exe
+dist/
+node_modules/
+
+# Env secrets
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
